@@ -26,7 +26,7 @@ Implemented methods:
 You can install it with:
 
 ```csharp
-dotnet add package yoomoney-api --version 1.1.0
+dotnet add package yoomoney-api --version 1.2.0
 ```
 
 # Quick start
@@ -55,8 +55,10 @@ Authorize authorize = new(clientId:"YOUR_CLIENT_ID",redirectUl:"YOUR_REDIRECT_UR
     "incoming-transfers",
     "payment-p2p",
 });
+var token = await authorize.GetAccessToken(code: "YOUR_СODE", clientId: "YOUR_CLIENT_ID", redirectUri: "YOUR_REDIRECT_URL");
+
 ```
-2. You receive a link to follow
+2. You get a link in the console to navigate to, but if you want to use it somewhere else, the Authorize class constructor initializes the AuthorizeUrl property with that link.
 
 ```csharp
 Visit this website and confirm the application authorization request:
