@@ -15,7 +15,7 @@ public class Authorize
         // Выводим сообщение для пользователя с URL-адресом авторизации
         WriteLine("\nVisit this website and confirm the application authorization request:");
         WriteLine($"{authorizeUrl}");
-        Write("\nEnter redirected url or just the text after code=\n=> ");
+        Write("\nEnter the full address of the page after the redirect=\n=> ");
         // Считываем ввод пользователя
         var code = ReadLine();
         // Проверяем, что введенный код не является пустым и содержит "code="

@@ -30,9 +30,9 @@ public class Client
     /// Получение информации о состоянии счета пользователя.
     /// </summary>
     /// <returns></returns>
-    public Account GetAccountInfo()
+    public Account GetAccountInfo(string token)
     {
-        return new Account(_baseUri, _token);
+        return new Account(_baseUri, token);
     }
 
     /// <summary>
@@ -48,6 +48,7 @@ public class Client
     /// <param name="details"></param>
     /// <returns></returns>
     public History GetOperationHistory(
+        string token,
         string? type = null,
         string? label = null,
         DateTime? fromDate = null,
@@ -57,16 +58,17 @@ public class Client
         bool details = false)
     {
         return new History(_baseUri,
-            _token, type, label, fromDate, tillDate, startRecord, records, details);
+            token, type, label, fromDate, tillDate, startRecord, records, details);
     }
-    
+
     /// <summary>
     /// Позволяет получить детальную информацию об операции из истории.
     /// </summary>
+    /// <param name="token"></param>
     /// <param name="operationId"></param>
     /// <returns></returns>
-    public OperationDetails GetOperationDetails(string operationId)
+    public OperationDetails GetOperationDetails(string token,string operationId)
     {
-        return new OperationDetails( _token, _baseUri, operationId);
+        return new OperationDetails( token, _baseUri, operationId);
     }
 }
