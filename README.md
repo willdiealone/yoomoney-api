@@ -47,7 +47,7 @@ Authorization proceeds as follows:
 ```csharp
 using yoomoney_api.authorize;
 
-Authorize authorize = new("YOUR_CLIENT_ID", "YOUR_REDIRECT_URL", new []
+Authorize authorize = new(clientId:"YOUR_CLIENT_ID",redirectUl:"YOUR_REDIRECT_URL",scope:new []
 {
     "account-info",
     "operation-history",
@@ -88,7 +88,7 @@ using yoomoney_api.account;
 using yoomoney_api.authorize;
 
 var client = new Client(token:authorize.TokenUrl);
-var accountInfo = client.GetAccountInfo();
+var accountInfo = client.GetAccountInfo(token:YOUR_TOKEN);
 user.Print();
 ```
 ## Output:
@@ -136,8 +136,8 @@ List of operations:
 ## Operation details
 Paste YOUR_TOKEN with an OPERATION_ID (example: 752413347835145104) from previous example output and run this code:
 ```csharp
-var operationDetails = client.GetOperationDetails(operationId,);
-operationDetails.Print(operationId:752413347835145104 ,YOUR_TOKEN);
+var operationDetails = client.GetOperationDetails(token:YOUR_TOKEN,operationId:operationId);
+operationDetails.Print(token:YOUR_TOKEN,operationId:752413347835145104);
 ```
 
 ## Output:
