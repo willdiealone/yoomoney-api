@@ -1,5 +1,5 @@
 # API Yoomoney - Unofficial C# Library
-This is an unofficial [YooMoney](https://yoomoney.ru) API Python library.
+This is an unofficial [YooMoney](https://yoomoney.ru) API C# library.
 ## Summary
 - [Introduction](#introduction)
 - [Features](#features)
@@ -9,7 +9,7 @@ This is an unofficial [YooMoney](https://yoomoney.ru) API Python library.
   2. [Account Information](#account-information)
   3. [Operation History](#operation-history)
   4. [Operation Details](#operation-details)
-  5. [Quickpay Forms](#quickpay-forms)
+  5. [Quickpay](#quickpay)
 ## Introduction
 This repository is based on the official documentation of [YooMoney](https://yoomoney.ru/docs/wallet).
 ## Features
@@ -26,7 +26,7 @@ Implemented methods:
 You can install it with:
 
 ```csharp
-dotnet add package yoomoney-api --version 1.0.0
+dotnet add package yoomoney-api --version 1.1.0
 ```
 
 # Quick start
@@ -87,8 +87,8 @@ Paste YOUR_TOKEN and run this code:
 using yoomoney_api.account;
 using yoomoney_api.authorize;
 
-var client = new Client(authorize.TokenUrl);
-var user = client.GetAccountInfo();
+var client = new Client(token:authorize.TokenUrl);
+var accountInfo = client.GetAccountInfo();
 user.Print();
 ```
 ## Output:
@@ -113,10 +113,10 @@ Information about linked bank cards:
 Paste YOUR_TOKEN and run this code:
 
 ```csharp
-var userHistory = client.GetOperationHistory();
+var operationrHistory = client.GetOperationHistory(token:YOUR_TOKEN);
 userHistory.Print();
 ```
-
+## Output:
 ```csharp
 List of operations:
 
@@ -131,4 +131,53 @@ List of operations:
         type                  --> deposition
         amount_currency       --> RUB
         is_sbp_operations     --> false
+```
+
+## Operation details
+Paste YOUR_TOKEN with an OPERATION_ID (example: 752413347835145104) from previous example output and run this code:
+```csharp
+var operationDetails = client.GetOperationDetails(operationId,);
+operationDetails.Print(operationId:752413347835145104 ,YOUR_TOKEN);
+```
+
+## Output:
+```csharp
+Operation details:
+        operation_id           --> 752413347835145104
+        status                 --> success
+        pattern_id             --> p2p
+        direction              --> in
+        amount                 --> 145,50
+        amount_due             --> Null
+        fee                    --> Null
+        datetime               --> 04.11.2023 11:42:27
+        title                  --> Пополнение с карты ****5769
+        sender                 --> Null
+        recipient              --> Null
+        recipient_type         --> Null
+        message                --> Перевод по кнопке
+        comment                --> Null
+        coderpo                --> Null
+        protection_code        --> Null
+        expires                --> Null
+        answer_datetime        --> Null
+        label                  --> b5c57192-e7d0-4ecc-8d9d-623b8426890d
+        details                --> Пополнение с банковской карты, операция №2cd841d2-0011-5000-a000-1c1da48c5f72.Банковская карта: ****5769.
+        type                   --> deposition
+        DigitalBonus is empty
+        DigitalProduct is empty
+```
+
+## Quickpay
+Run this code:
+```csharp
+var quickpay = new Quickpay(receiver: "4100118408605024", quickpayForm: "shop",
+        targets: "Sponsor this project", sum: 150, label: Guid.NewGuid().ToString(),
+        successUrl: "YOUR_REDIRECT_URL", paymentType: "AC");
+Console.WriteLine(quickpay.RedirectUri);
+//Payment method. Possible values: PC - payment from the YuMoney wallet; AC - from a bank card.
+```
+## Output:
+```csharp
+https://yoomoney.ru/quickpay/confirm?receiver=4100118408605024&quickpay-form=shop&targets=Premium%20rate&paymentType=AC&sum=150&label=e7db8012-53ee-4a1a-afa6-b448232116e7
 ```
