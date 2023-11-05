@@ -141,6 +141,7 @@ operationDetails.Print(operationId:752413347835145104 ,YOUR_TOKEN);
 ```
 
 ## Output:
+This way we can check whether the payment went through, generate a link for transfer using the card number, and then receive the transaction history and check (status, datetime, label).
 ```csharp
 Operation details:
         operation_id           --> 752413347835145104
@@ -169,6 +170,7 @@ Operation details:
 ```
 
 ## Quickpay
+Label - make it unique for each payment.
 Run this code:
 ```csharp
 var quickpay = new Quickpay(receiver: "4100118408605024", quickpayForm: "shop",
