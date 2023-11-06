@@ -23,7 +23,7 @@ Implemented methods:
 - [Quickpay](#quickpay) - The YooMoney form is a set of fields with information about a transfer. You can embed the payment form into your interface (e.g., a website or blog). When the sender pushes the button, the details from the form are sent to YooMoney, and an order for a transfer to your wallet is initiated.
 ## Installation
 
-You can install it with:
+You can install it with .Net CLI command:
 
 ```csharp
 dotnet add package yoomoney-api --version 1.2.0
