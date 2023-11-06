@@ -184,5 +184,5 @@ Console.WriteLine(quickpay.RedirectUri);
 ```
 ## Output:
 ```csharp
-https://yoomoney.ru/quickpay/confirm?receiver=4100118408605024&quickpay-form=shop&targets=Premium%20rate&paymentType=AC&sum=150&label=e7db8012-53ee-4a1a-afa6-b448232116e7
+https://yoomoney.ru/quickpay/confirm?receiver=4100118408605024&quickpay-form=shop&targets=Sponsor%20this%20project&paymentType=AC&sum=150&label=e7db8012-53ee-4a1a-afa6-b448232116e7
 ```
