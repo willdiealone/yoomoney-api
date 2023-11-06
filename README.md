@@ -55,26 +55,27 @@ Authorize authorize = new(clientId:"YOUR_CLIENT_ID",redirectUl:"YOUR_REDIRECT_UR
     "incoming-transfers",
     "payment-p2p",
 });
-var token = await authorize.GetAccessToken(code: "YOUR_СODE", clientId: "YOUR_CLIENT_ID", redirectUri: "YOUR_REDIRECT_URL");
-
 ```
 2. You get a link in the console to navigate to, but if you want to use it somewhere else, the Authorize class constructor initializes the AuthorizeUrl property with that link.
-
 ```csharp
-Visit this website and confirm the application authorization request:
+authorize.AuthorizeUrl
+```
+3. Visit this website and confirm the application authorization request.
+```csharp
 https://yoomoney.ru/oauth/authorize?client_id=XXXXXXXXXXXXXXXXXXXXXXXXXX
 ``` 
-3. You follow the generated link, enter the code that you will receive, after which you will be redirected to YOUR_REDIRECT_URL.
-4. The redirect completion field to YOUR_REDIRECT_URL, you copy the address bar of this page you are currently on, keep in mind that this address has a lifetime of a minute.
+4. You follow the generated link, enter the code that you will receive, after which you will be redirected to YOUR_REDIRECT_URL.
+5. Once the redirect to YOUR_REDIRECT_URL is complete, you copy the address bar of that page you're currently on (but keep in mind that the lifetime of that address is a minute) and pass that address as a method parameter `GetAccessToken` and the access token we need will be returned to the `token` variable.
+
+Example url
 ```csharp
 https://example/k/?code=A54AB5755DFA80B0167532E413C87F90CBD8677C72758EAAD6E7F1AAD341FEBEBAD7B3754D2A6E42101029C134E55CB55A382412D953497D9CE5FCC7F96FE47B92615B0167BA727E49DC81F21A36312FDF440CAD5A1813E9849167C5B7307661504D134A432DDB727FDA302E040326425F82D41F3237FCFD6A9A6DE3C904D4A1
 ```
-  and 
+Copy and paste this code  
 ```csharp
-Enter the full address of the page after the redirect=
-=>  https://web.telegram.org/k/?code=EA9C91AA678ED7D4E151B83F51040B227EA57D60BC9D26965C684C111645A1B256877608FF624AC68AFE770D8236B8DF3C344D6AE9D0F74131B203E2D0FA9D2B31683F9E6778CC18505EBC9E5949710BC2CD079F3152101AD4AA3D78378C2E9AA1F96993AFB24526788D2CB178E0E22ADF3198FEFD38C95A3053780C73464D8F
+var token = await authorize.GetAccessToken(code: "YOUR_СODE", clientId: "YOUR_CLIENT_ID", redirectUri: "YOUR_REDIRECT_URL");
 ```
-5. Your access token
+6. Your access token
 ```csharp
 Your access token:
 4100118408605024.16F0ADB9BFE2156AF44828F2B7A7347A146B487DF8AF88343832A44F39691B888E3FFAEFE6087AD8F8C425809360F712E8A9BE9C1EC0B1906A967413A8FD66A132D786C4097D8EA4D60F086666FDABEF0FD89EFDCFB29CA4936A10E7F89463C337DED49799349B0D3A8581F7D7434A0938F3E0A9E75256752C4A78484630762A
