@@ -92,7 +92,7 @@ using yoomoney_api.authorize;
 
 var client = new Client(token:authorize.TokenUrl);
 var accountInfo = client.GetAccountInfo(token:YOUR_TOKEN);
-user.Print();
+accountInfo.Print();
 ```
 ## Output:
 ``` csharp
@@ -117,7 +117,7 @@ Paste YOUR_TOKEN and run this code:
 
 ```csharp
 var operationrHistory = client.GetOperationHistory(token:YOUR_TOKEN);
-userHistory.Print();
+operationrHistory.Print();
 ```
 ## Output:
 ```csharp
@@ -140,7 +140,7 @@ List of operations:
 Paste YOUR_TOKEN with an OPERATION_ID (example: 752413347835145104) from previous example output and run this code:
 ```csharp
 var operationDetails = client.GetOperationDetails(token:YOUR_TOKEN,operationId:operationId);
-operationDetails.Print(token:YOUR_TOKEN,operationId:752413347835145104);
+operationDetails.Print();
 ```
 
 ## Output:
