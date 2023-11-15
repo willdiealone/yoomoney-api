@@ -116,8 +116,8 @@ Information about linked bank cards:
 Paste YOUR_TOKEN and run this code:
 
 ```csharp
-var operationrHistory = client.GetOperationHistory(token:YOUR_TOKEN);
-operationrHistory.Print();
+var operationHistory = client.GetOperationHistory(token:YOUR_TOKEN);
+operationHistory.Print();
 ```
 ## Output:
 ```csharp
