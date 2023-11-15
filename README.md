@@ -176,11 +176,23 @@ Operation details:
 Label - make it unique for each payment.
 Run this code:
 ```csharp
-var quickpay = new Quickpay("4100118408605024", "shop", 150, Guid.NewGuid().ToString(), "AC");
+var quickpay = new Quickpay(receiver: "4100118408605024",
+    quickpayForm: "shop",
+    sum: 10,
+    label: Guid.NewGuid().ToString(),
+    paymentType: "AC",
+    firstname:"Dennis",
+    lastname:"Arabaleev",
+    fathersname: "Tingulovich",
+    email:"ghostamane@mail.ru",
+    phone:"89676654223",
+    city:"London",
+    comment:"Text");
+
 WriteLine(quickpay.LinkPayment);
 //Payment method. Possible values: PC - payment from the YuMoney wallet; AC - from a bank card.
 ```
 ## Output:
 ```csharp
-https://yoomoney.ru/quickpay/confirm?receiver=4100118408605024&quickpay-form=shop&paymentType=AC&sum=150&label=d8f02863-ef24-461b-9c89-14427b96dbac
+https://yoomoney.ru/quickpay/confirm.xml?receiver=4100118408605024&firstname=Dennis&lastname=Arabaleev&fathersname=Tingulovich&email=ghostamane@mail.ru&phone=89676654223&city=London&quickpay-form=shop&paymentType=AC&sum=10&label=074855d0-d638-4f29-be35-847c33d4e478
 ```
