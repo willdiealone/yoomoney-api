@@ -194,5 +194,5 @@ WriteLine(quickpay.LinkPayment);
 ```
 ## Output:
 ```csharp
-https://yoomoney.ru/quickpay/confirm.xml?receiver=4100118408605024&firstname=Dennis&lastname=Arabaleev&fathersname=Tingulovich&email=ghostamane@mail.ru&phone=89676654223&city=London&quickpay-form=shop&paymentType=AC&sum=10&label=074855d0-d638-4f29-be35-847c33d4e478
+https://yoomoney.ru/transfer/quickpay?requestId=353431383930343936375f61366365666236306230333431376231613434663139313231393462366435633264363761396139
 ```
