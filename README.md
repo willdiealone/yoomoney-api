@@ -30,7 +30,7 @@ Implemented methods:
 You can install it with .Net CLI command:
 
 ```csharp
-dotnet add package yoomoney-api --version 1.3.0
+dotnet add package yoomoney-api --version 1.4.0
 ```
 
 # Quick start
