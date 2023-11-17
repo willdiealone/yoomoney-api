@@ -26,7 +26,7 @@ Implemented methods:
 You can install it with .Net CLI command:
 
 ```csharp
-dotnet add package yoomoney-api --version 1.2.0
+dotnet add package yoomoney-api --version 1.3.0
 ```
 
 # Quick start
