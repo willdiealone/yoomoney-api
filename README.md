@@ -1,15 +1,15 @@
 # API Yoomoney - Unofficial C# Library
-This is an unofficial [YooMoney](https://yoomoney.ru) API C# library.
+![Logo](https://imgur.com/4tWrKD2.png)
 ## Summary
 - [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
   1. [Access Token](#access-token)
-  2. [Account Information](#account-information)
-  3. [Operation History](#operation-history)
-  4. [Operation Details](#operation-details)
-  5. [Quickpay](#quickpay)
+  3. [Account Information](#account-information)
+  4. [Operation History](#operation-history)
+  5. [Operation Details](#operation-details)
+  6. [Quickpay](#quickpay)
 ## Introduction
 This repository is based on the official documentation of [YooMoney](https://yoomoney.ru/docs/wallet).
 ## Features
@@ -23,10 +23,10 @@ Implemented methods:
 - [Quickpay](#quickpay) - The YooMoney form is a set of fields with information about a transfer. You can embed the payment form into your interface (e.g., a website or blog). When the sender pushes the button, the details from the form are sent to YooMoney, and an order for a transfer to your wallet is initiated.
 ## Installation
 
-You can install it with:
+You can install it with .Net CLI command:
 
 ```csharp
-dotnet add package yoomoney-api --version 1.2.0
+dotnet add package yoomoney-api --version 1.3.0
 ```
 
 # Quick start
@@ -55,26 +55,27 @@ Authorize authorize = new(clientId:"YOUR_CLIENT_ID",redirectUl:"YOUR_REDIRECT_UR
     "incoming-transfers",
     "payment-p2p",
 });
-var token = await authorize.GetAccessToken(code: "YOUR_СODE", clientId: "YOUR_CLIENT_ID", redirectUri: "YOUR_REDIRECT_URL");
-
 ```
 2. You get a link in the console to navigate to, but if you want to use it somewhere else, the Authorize class constructor initializes the AuthorizeUrl property with that link.
-
 ```csharp
-Visit this website and confirm the application authorization request:
+authorize.AuthorizeUrl
+```
+3. Visit this website and confirm the application authorization request.
+```csharp
 https://yoomoney.ru/oauth/authorize?client_id=XXXXXXXXXXXXXXXXXXXXXXXXXX
 ``` 
-3. You follow the generated link, enter the code that you will receive, after which you will be redirected to YOUR_REDIRECT_URL.
-4. The redirect completion field to YOUR_REDIRECT_URL, you copy the address bar of this page you are currently on, keep in mind that this address has a lifetime of a minute.
+4. You follow the generated link, enter the code that you will receive, after which you will be redirected to YOUR_REDIRECT_URL.
+5. Once the redirect to YOUR_REDIRECT_URL is complete, you copy the address bar of that page you're currently on (but keep in mind that the lifetime of that address is a minute) and pass that address as a method parameter `GetAccessToken` and the access token we need will be returned to the `token` variable.
+
+Example url
 ```csharp
 https://example/k/?code=A54AB5755DFA80B0167532E413C87F90CBD8677C72758EAAD6E7F1AAD341FEBEBAD7B3754D2A6E42101029C134E55CB55A382412D953497D9CE5FCC7F96FE47B92615B0167BA727E49DC81F21A36312FDF440CAD5A1813E9849167C5B7307661504D134A432DDB727FDA302E040326425F82D41F3237FCFD6A9A6DE3C904D4A1
 ```
-  and 
+Copy and paste this code  
 ```csharp
-Enter the full address of the page after the redirect=
-=>  https://web.telegram.org/k/?code=EA9C91AA678ED7D4E151B83F51040B227EA57D60BC9D26965C684C111645A1B256877608FF624AC68AFE770D8236B8DF3C344D6AE9D0F74131B203E2D0FA9D2B31683F9E6778CC18505EBC9E5949710BC2CD079F3152101AD4AA3D78378C2E9AA1F96993AFB24526788D2CB178E0E22ADF3198FEFD38C95A3053780C73464D8F
+var token = await authorize.GetAccessToken(code: "YOUR_СODE", clientId: "YOUR_CLIENT_ID", redirectUri: "YOUR_REDIRECT_URL");
 ```
-5. Your access token
+6. Your access token
 ```csharp
 Your access token:
 4100118408605024.16F0ADB9BFE2156AF44828F2B7A7347A146B487DF8AF88343832A44F39691B888E3FFAEFE6087AD8F8C425809360F712E8A9BE9C1EC0B1906A967413A8FD66A132D786C4097D8EA4D60F086666FDABEF0FD89EFDCFB29CA4936A10E7F89463C337DED49799349B0D3A8581F7D7434A0938F3E0A9E75256752C4A78484630762A
@@ -91,7 +92,7 @@ using yoomoney_api.authorize;
 
 var client = new Client(token:authorize.TokenUrl);
 var accountInfo = client.GetAccountInfo(token:YOUR_TOKEN);
-user.Print();
+accountInfo.Print();
 ```
 ## Output:
 ``` csharp
@@ -115,8 +116,8 @@ Information about linked bank cards:
 Paste YOUR_TOKEN and run this code:
 
 ```csharp
-var operationrHistory = client.GetOperationHistory(token:YOUR_TOKEN);
-userHistory.Print();
+var operationHistory = client.GetOperationHistory(token:YOUR_TOKEN);
+operationHistory.Print();
 ```
 ## Output:
 ```csharp
@@ -139,7 +140,7 @@ List of operations:
 Paste YOUR_TOKEN with an OPERATION_ID (example: 752413347835145104) from previous example output and run this code:
 ```csharp
 var operationDetails = client.GetOperationDetails(token:YOUR_TOKEN,operationId:operationId);
-operationDetails.Print(token:YOUR_TOKEN,operationId:752413347835145104);
+operationDetails.Print();
 ```
 
 ## Output:
@@ -172,16 +173,124 @@ Operation details:
 ```
 
 ## Quickpay
+The first step is to install our
+[notifications](https://yoomoney.ru/transfer/myservices/http-notification)
+in the YooMoney client.
+Enter the address to which you will receive notifications, and also be sure to save the secret key, we will need it for the next step.
+![dwdw](https://imgur.com/MpB25LF.png)
+After this we need to generate a payment link, copy and paste this code
+
 Label - make it unique for each payment.
 Run this code:
 ```csharp
-var quickpay = new Quickpay(receiver: "4100118408605024", quickpayForm: "shop",
-        targets: "Sponsor this project", sum: 150, label: Guid.NewGuid().ToString(),
-        successUrl: "YOUR_REDIRECT_URL", paymentType: "AC");
-Console.WriteLine(quickpay.RedirectUri);
-//Payment method. Possible values: PC - payment from the YuMoney wallet; AC - from a bank card.
+var label = Guid.NewGuid().ToString();
+var quickpay = new Quickpay(receiver: "4100118408605024", quickpayForm: "shop", sum: 10, 
+	label: label, paymentType: "AC"); //Payment method. Possible values: PC - payment from the YuMoney wallet; AC - from a bank card.
+WriteLine(quickpay.LinkPayment);
+
+//replace --> ("YOUR_IP_ADDRESS_OR_DNS_NAME","NOTIFICATION_SECRET",YOUR_PORT")
+PaymentListenerToYooMoney paymentListenerToYooMoney = new(label,DateTime.Today,"NOTIFICATION_SECRET");
+var resultPayment = await paymentListenerToYooMoney.Listen("YOUR_IP_ADDRESS_OR_DNS_NAME","YOUR_PORT");
+WriteLine(resultPayment);
 ```
 ## Output:
 ```csharp
-https://yoomoney.ru/quickpay/confirm?receiver=4100118408605024&quickpay-form=shop&targets=Premium%20rate&paymentType=AC&sum=150&label=e7db8012-53ee-4a1a-afa6-b448232116e7
+https://yoomoney.ru/transfer/quickpay?requestId=353432303336353332305f39366662343561383966646635393039633365396165366566656231366237383762333062346237
+
+IP-appec: XXX.X.X.X // Доменное имя: https://XXXXXXXXXXX, IP: XX.XXX.XXX.XX
+Сервер запущен. Ожидание подключений...
+```
+Follow the link, pay and wait for notifications from YooMooney,it will arrive immediately after a notification on your phone.
+
+## Output:
+```csharp
+Подключен клиент.
+HTTP Requests
+-------------
+
+POST /
+Текущий платеж:
+        NotificationType   --> card-incoming
+        OperationId        --> 753525659460074104
+        DateTime           --> 2023-11-17 12:40
+        Amount             --> 9.70
+        WithdrawAmount     --> 10.00
+        Firstname          -->  Null
+        Lastname           -->  Null
+        Fathersname        -->  Null
+        Email              -->  Null
+        Phone              -->  Null
+        City               -->  Null
+        Street             -->  Null
+        Building           -->  Null
+        Suite              -->  Null
+        Flat               -->  Null
+        Zip                -->  Null
+        Sender             -->  Null
+        Unaccepted         --> false
+        Codepro            --> false
+        Currency           --> 643
+        Label              --> eb0db09d-7354-48e9-abf8-bceef21c0b01
+
+Успешно!
+Сервер завершил работу
+```
+Contact information is available only by protocol HTTPS
+```csharp
+var quickpay = new Quickpay(
+	receiver: "4100118408605024",
+	quickpayForm: "shop",
+	sum: 10, 
+	label: label,
+	paymentType: "AC",
+	firstname:"Oleg",
+	lastname:"Olegov",
+	fathersname:"Olegovich",
+	city:"Saint Petersburg",
+	street:"Begovaya street",
+	zip:"197374",
+	building:"11",
+	suite:"1",
+	flat:"43",
+	phone:"+7987674115",
+	sender:"4100167987654");
+
+//replace --> ("YOUR_IP_ADDRESS_OR_DNS_NAME","NOTIFICATION_SECRET",YOUR_PORT")
+PaymentListenerToYooMoney paymentListenerToYooMoney = new(label,DateTime.Today,"NOTIFICATION_SECRET");
+var resultPayment = await paymentListenerToYooMoney.Listen("YOUR_IP_ADDRESS_OR_DNS_NAME","YOUR_PORT");
+WriteLine(resultPayment);
+```
+## Output:
+
+```csharp
+Подключен клиент.
+HTTP Requests
+-------------
+
+POST /
+Текущий платеж:
+        NotificationType   --> card-incoming
+        OperationId        --> 753525659460074104
+        DateTime           --> 2020-01-12 01:22
+        Amount             --> 9.70
+        WithdrawAmount     --> 10.00
+        Firstname          -->  Oleg
+        Lastname           -->  Olegov
+        Fathersname        -->  Olegovich
+        Email              -->  Oleg@gmail.com
+        Phone              -->  +79957773555
+        City               -->  Saint Petersburg
+        Street             -->  Begovaya street
+        Building           -->  11
+        Suite              -->  1
+        Flat               -->  43
+        Zip                -->  197374
+        Sender             -->  4100167987654
+        Unaccepted         --> false
+        Codepro            --> false
+        Currency           --> 643
+        Label              --> 560bb09d-5986-38e9-abf8-cl59f21c0bh5
+
+Успешно!
+Сервер завершил работу
 ```
