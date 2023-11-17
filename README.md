@@ -6,10 +6,10 @@
 - [Installation](#installation)
 - [Quick Start](#quick-start)
   1. [Access Token](#access-token)
-  2. [Account Information](#account-information)
-  3. [Operation History](#operation-history)
-  4. [Operation Details](#operation-details)
-  5. [Quickpay](#quickpay)
+  3. [Account Information](#account-information)
+  4. [Operation History](#operation-history)
+  5. [Operation Details](#operation-details)
+  6. [Quickpay](#quickpay)
 ## Introduction
 This repository is based on the official documentation of [YooMoney](https://yoomoney.ru/docs/wallet).
 ## Features
@@ -173,26 +173,65 @@ Operation details:
 ```
 
 ## Quickpay
+The first step is to install our
+[notifications](https://yoomoney.ru/transfer/myservices/http-notification)
+in the YooMoney client.
+Enter the address to which you will receive notifications, and also be sure to save the secret key, we will need it for the next step.
+![dwdw](https://imgur.com/MpB25LF.png)
+After this we need to generate a payment link, copy and paste this code
+
 Label - make it unique for each payment.
 Run this code:
 ```csharp
-var quickpay = new Quickpay(receiver: "4100118408605024",
-    quickpayForm: "shop",
-    sum: 10,
-    label: Guid.NewGuid().ToString(),
-    paymentType: "AC",
-    firstname:"Dennis",
-    lastname:"Arabaleev",
-    fathersname: "Tingulovich",
-    email:"ghostamane@mail.ru",
-    phone:"89676654223",
-    city:"London",
-    comment:"Text");
-
+var label = Guid.NewGuid().ToString();
+var quickpay = new Quickpay(receiver: "4100118408605024", quickpayForm: "shop", sum: 10, 
+	label: label, paymentType: "AC"); //Payment method. Possible values: PC - payment from the YuMoney wallet; AC - from a bank card.
 WriteLine(quickpay.LinkPayment);
-//Payment method. Possible values: PC - payment from the YuMoney wallet; AC - from a bank card.
+
+//replace --> ("YOUR_IP_ADDRESS_OR_DNS_NAME","NOTIFICATION_SECRET",YOUR_PORT")
+PaymentListenerToYooMoney paymentListenerToYooMoney = new(label,DateTime.Today,"NOTIFICATION_SECRET");
+var resultPayment = await paymentListenerToYooMoney.Listen("YOUR_IP_ADDRESS_OR_DNS_NAME","YOUR_PORT");
+WriteLine(resultPayment);
 ```
 ## Output:
 ```csharp
-https://yoomoney.ru/transfer/quickpay?requestId=353431383930343936375f61366365666236306230333431376231613434663139313231393462366435633264363761396139
+https://yoomoney.ru/transfer/quickpay?requestId=353432303336353332305f39366662343561383966646635393039633365396165366566656231366237383762333062346237
+
+IP-appec: XXX.X.X.X // Доменное имя: https://XXXXXXXXXXX, IP: XX.XXX.XXX.XX
+Сервер запущен. Ожидание подключений...
+```
+Follow the link, pay and wait for notifications from YooMooney,it will arrive immediately after a notification on your phone.
+
+## Output:
+```csharp
+Подключен клиент.
+HTTP Requests
+-------------
+
+POST /
+Текущий платеж:
+        NotificationType   --> card-incoming
+        OperationId        --> 753525659460074104
+        DateTime           --> 2023-11-17 12:40
+        Amount             --> 9.70
+        WithdrawAmount     --> 10.00
+        Firstname          -->  Null
+        Lastname           -->  Null
+        Fathersname        -->  Null
+        Email              -->  Null
+        Phone              -->  Null
+        City               -->  Null
+        Street             -->  Null
+        Building           -->  Null
+        Suite              -->  Null
+        Flat               -->  Null
+        Zip                -->  Null
+        Sender             -->  Null
+        Unaccepted         --> false
+        Codepro            --> false
+        Currency           --> 643
+        Label              --> eb0db09d-7354-48e9-abf8-bceef21c0b01
+
+Успешно!
+Сервер завершил работу
 ```
