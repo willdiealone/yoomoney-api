@@ -1,5 +1,6 @@
 # API Yoomoney - Unofficial C# Library
 This is an unofficial [YooMoney](https://yoomoney.ru) API C# library.
+![Logo](https://imgur.com/4tWrKD2)
 ## Summary
 - [Introduction](#introduction)
 - [Features](#features)
