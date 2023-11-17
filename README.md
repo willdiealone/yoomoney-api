@@ -11,7 +11,11 @@
   5. [Operation Details](#operation-details)
   6. [Quickpay](#quickpay)
 ## Introduction
-This repository is based on the official documentation of [YooMoney](https://yoomoney.ru/docs/wallet).
+**This library will allow you to:**
+- **Generate a payment link and process the payment notification asynchronously**
+- **Access account information**
+- **Get access to payment history**
+- **Access payment details**
 ## Features
 
 Implemented methods:
