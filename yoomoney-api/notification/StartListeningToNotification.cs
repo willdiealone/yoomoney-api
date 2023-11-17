@@ -7,9 +7,6 @@ public class PaymentListenerToYooMoney
     private string Label { get; }
     private DateTime DateTime { get; }
     private string NotificationSecret { get; }
-    private string IpAdress { get; }
-    private int Port { get; }
-    
 
     public PaymentListenerToYooMoney(string label, DateTime dateTime, string notification_secret)
     {

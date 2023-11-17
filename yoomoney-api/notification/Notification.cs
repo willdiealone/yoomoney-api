@@ -130,11 +130,10 @@ public class NotificationHandler
 
 	private string LabelToCheck { get; set; }
 	private DateTime DataTimelToCheck { get; set; }
-
 	private string NotificationSecret { get; }
-	
 	private bool firstClientAccepted { get; set; }
 	private CancellationTokenSource Token { get; }
+	
 	public NotificationHandler(string label, DateTime dateTime, string notification_secret,CancellationTokenSource token)
 	{
 		bool firstClientAccepted = false;
