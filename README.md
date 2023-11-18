@@ -1,5 +1,11 @@
 # API Yoomoney - Unofficial C# Library
 ![Logo](https://imgur.com/4tWrKD2.png)
+
+[![YouTube video about yoomoney-api]( https://img.shields.io/badge/watch%20on-YouTube-blue?logo=youtube&style=for-the-badge)](https://youtu.be/c9gv_IWgV4Y)
+[![Nuget version](https://img.shields.io/nuget/v/yoomoney-api?style=for-the-badge)](https://www.nuget.org/packages/yoomoney-api)
+[![Dotnet](https://img.shields.io/badge/platform-.NET-blue?style=for-the-badge)](https://www.nuget.org/packages/yoomoney-api)
+[![Nuget download](https://img.shields.io/nuget/dt/yoomoney-api?style=for-the-badge)](https://youtu.be/c9gv_IWgV4Y)
+
 ## Summary
 - [Introduction](#introduction)
 - [Features](#features)
@@ -37,7 +43,7 @@ dotnet add package yoomoney-api --version 1.4.0
 
 1. Log in to your YooMoney wallet with your username. If you do not have a wallet, [create it](https://yoomoney.ru/reg).
 2. Go to the [App registration](https://yoomoney.ru/myservices/new) page.
-   ![App registration2](https://i.imgur.com/jroGrUL.png)
+<img src="https://i.imgur.com/jroGrUL.png" width="600px"> 
 3. Follow the example, enter all the required data and click the "all correct" button   
 4. Set the application parameters. Save CLIENT_ID and YOUR_REDIRECT_URI for the next steps.
 5. Click the Confirm button.
@@ -188,7 +194,6 @@ The first step is to install our
 [notifications](https://yoomoney.ru/transfer/myservices/http-notification)
 in the YooMoney client.
 Enter the address to which you will receive notifications, and also be sure to save the secret key, we will need it for the next step.
-![dwdw](https://imgur.com/MpB25LF.png)
 After this we need to generate a payment link, copy and paste this code
 
 Label - make it unique for each payment.
