@@ -177,6 +177,13 @@ Operation details:
 ```
 
 ## Quickpay
+[![YouTube video about yoomoney-api]( https://img.shields.io/badge/watch%20on-YouTube-blue?logo=youtube&style=for-the-badge)](https://youtu.be/c9gv_IWgV4Y)
+<p>	<a href="https://youtu.be/c9gv_IWgV4Y">
+    <img src="https://imgur.com/5z1XqIl.png" width="600px">
+</a>
+
+</p>
+
 The first step is to install our
 [notifications](https://yoomoney.ru/transfer/myservices/http-notification)
 in the YooMoney client.
