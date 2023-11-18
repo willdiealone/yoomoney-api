@@ -4,7 +4,7 @@
 [![YouTube video about yoomoney-api]( https://img.shields.io/badge/watch%20on-YouTube-blue?logo=youtube&style=for-the-badge)](https://youtu.be/c9gv_IWgV4Y)
 [![Nuget version](https://img.shields.io/nuget/v/yoomoney-api?style=for-the-badge)](https://www.nuget.org/packages/yoomoney-api)
 [![Dotnet](https://img.shields.io/badge/platform-.NET-blue?style=for-the-badge)](https://www.nuget.org/packages/yoomoney-api)
-[![Nuget download](https://img.shields.io/nuget/dt/yoomoney-api?style=for-the-badge)](https://youtu.be/c9gv_IWgV4Y)
+[![Nuget download](https://img.shields.io/nuget/dt/yoomoney-api?style=for-the-badge)](https://www.nuget.org/packages/yoomoney-api)
 
 ## Summary
 - [Introduction](#introduction)
